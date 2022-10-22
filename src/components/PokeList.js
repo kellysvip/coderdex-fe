@@ -118,6 +118,7 @@ export default function PokeList() {
     const [next, setNext] = useState(false);
     const dispatch = useDispatch();
     const { pokemons } = useSelector((state) => state.pokemons);
+    console.log('pokemons', pokemons)
     const handleChangePage = () => {
         dispatch(changePage());
     };

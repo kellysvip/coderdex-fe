@@ -25,9 +25,12 @@ export const getPokemons = createAsyncThunk('pokemons/getPokemons', async ({ pag
 export const getPokemonById = createAsyncThunk('pokemons/getPokemonById', async (id, { rejectWithValue }) => {
     try {
         let url = `/pokemons/${id}`;
+        
         const response = await apiService.get(url);
-        if (!response.data) return rejectWithValue({ message: 'No data' });
-        return response.data;
+        console.log('response', response) 
+        if (!response) return rejectWithValue({ message: 'No data' });
+        
+        return response;
     } catch (error) {
         return rejectWithValue(error);
     }
@@ -35,12 +38,14 @@ export const getPokemonById = createAsyncThunk('pokemons/getPokemonById', async 
 
 export const addPokemon = createAsyncThunk(
     'pokemons/addPokemon',
-    async ({ name, id, imgUrl, types }, { rejectWithValue }) => {
+    async ({id, name, types ,  imgUrl}, { rejectWithValue }) => {
         try {
             let url = '/pokemons';
+            id = Number(id)
             await apiService.post(url, { name, id, url: imgUrl, types });
             return
         } catch (error) {
+            console.log(error)
             return rejectWithValue(error)
         }
     }

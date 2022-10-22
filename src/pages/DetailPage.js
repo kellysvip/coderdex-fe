@@ -17,6 +17,7 @@ const styles = {
 
 export const DetailPage = () => {
 	const { pokemon, nextPokemon, previousPokemon } = useSelector((state) => state.pokemons.pokemon);
+	
 	const { id } = useParams();
 	const dispatch = useDispatch();
 	useEffect(() => {
@@ -195,9 +196,9 @@ const calculateWeaknesses = (types) => {
 	};
 
 	types.forEach((type) => {
-		weaknesses[type].weak.forEach((t) => total[t]++);
-		weaknesses[type].resistant.forEach((t) => total[t]--);
-		weaknesses[type].nullified.forEach((t) => total[t]--);
+		weaknesses[type.toLowerCase()].weak.forEach((t) => total[t]++);
+		weaknesses[type.toLowerCase()].resistant.forEach((t) => total[t]--);
+		weaknesses[type.toLowerCase()].nullified.forEach((t) => total[t]--);
 	});
 	let final = [];
 	Object.keys(total).forEach((type) => {
